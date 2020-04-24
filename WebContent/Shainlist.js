@@ -4,7 +4,7 @@ function executeAjax() {
 		type : 'GET',
 		url : '/testweb/SyainServlet',
 		dataType : 'json',
-		async: false,
+		async : false,
 		success : function(json) {
 			console.log(json);
 			for (var i = 0; i < json.length; i++) {
@@ -14,25 +14,66 @@ function executeAjax() {
 						+ element.shainCd + '">' + "削除" + '</button></td>'
 						+ '</tr>';
 				$('#table_data').append(record)
-				var op = '<select>' + '<option>' + element.bushoName
-						+ '</option>' + '</select>'
-				$('#Busho').append(op)
+//				var op = '<option>' + element.bushoName + '</option>'
+//				$('#Busho').append(op)
 
 				$("#" + element.shainCd).bind('click', deleteAjax);
+
 			}
 
 		}
 	});
 
 }
+// // サーバーにデータを送信する。
+// $.ajax({
+// type : 'POST',
+// dataType:'json',
+// url : '/testweb/SyainServlet',
+// data : requestQuery,
+// success : function(json) {
+// // サーバーとの通信に成功した時の処理
+// // 確認のために返却値を出力
+// console.log($(this).attr('id'), json);
+// // 登録完了のアラート
+// alert('登録が完了しました');
+// },
+// error:function(XMLHttpRequest, textStatus, errorThrown){
+// // サーバーとの通信に失敗した時の処理
+// alert('データの通信に失敗しました');
+// console.log(errorThrown)
+// }
+// });
+// }
+
 function deleteAjax() {
 	console.log($(this).attr('id'));
+	var requestQuery = {
+		shainCd : $(this).attr('id')
+	};
 	'use strict';
 	$.ajax({
 		type : 'POST',
-		url : '/testweb/SyainServlet'
+		url : '/testweb/SyainServlet',
+		dataType : 'json',
+		data : requestQuery,
+		success : function(json) {
+			// サーバーとの通信に成功した時の処理
+			// 確認のために返却値を出力
+			console.log('返却値', json);
+			koshin();
+			},
+			error:function(XMLHttpRequest, textStatus, errorThrown){
+			// サーバーとの通信に失敗した時の処理
+			alert('データの通信に失敗しました');
+			console.log(errorThrown)
+			}
 
 	});
+}
+
+function koshin(){
+	location.reload();
 }
 
 $(document).ready(function() {
@@ -40,7 +81,5 @@ $(document).ready(function() {
 
 	// 初期表示用
 	executeAjax();
-
-
 
 });

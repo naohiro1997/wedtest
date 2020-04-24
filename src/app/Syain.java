@@ -41,7 +41,7 @@ public class Syain implements Serializable {
 
 	@Override
 	public String toString() {
-		return "SHAIN [shainCd=" + shainCd + ", name=" + name + ",bushoName=" + bushoName + "]";
+		return "SHAIN [shainCd=" + shainCd + ", name=" + name + "]";
 	}
 
 }

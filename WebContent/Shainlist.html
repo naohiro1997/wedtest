@@ -7,6 +7,7 @@
 <!-- JavaScriptの読み込み -->
 <script type="text/javascript" src="jquery-1.10.2.js"></script>
 <script type="text/javascript" src="Shainlist.js"></script>
+<script type="text/javascript" src="ShainRegist.js"></script>
 </head>
 <body>
 
@@ -22,14 +23,31 @@
 			</tr>
 		</table>
 	</div>
-
-		<select name="Busho">
-		 <option>未指定</option>
-		</select>
-		<input type="text" id="shcd" ></input>
-		<input type="text" id="shname"></input>
+	<form action="">
+		<select id="Busho">
+			<option>未指定</option>
+		</select> <input type="text" id="shcd"></input> <input type="text" id="shname"></input>
 		<button type=submit id="searchBtn">検索</button>
+	</form>
+	<div class="content">
+		<!-- ページナビゲーション -->
+		<div class="nav">
+			<h2>新規登録</h2>
+		</div>
+		<table class="shain-detail-table">
+			<tr>
+				<th>社員ID</th>
+				<td><input type="text" placeholder="社員id" id="js-input-code"></td>
+			</tr>
+			<tr>
+				<th>名前</th>
+				<td><input type="text" placeholder="名前" id="js-input-name"></input></td>
+			</tr>
 
+
+		</table>
+		<button id="js-regist-button">登録</button>
+	</div>
 
 </body>
 </html>

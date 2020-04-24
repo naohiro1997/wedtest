@@ -56,9 +56,8 @@ public class SyainServlet extends HttpServlet {
 		String pass = "wt2";
 
 		// 実行するSQL文
-		String sql ="select MS_SHAIN.SHAIN_CD,MS_SHAIN.NAME,BUSHO.BUSHO_NAME"
-				+" from MS_SHAIN,BUSHO"
-				+" where 1=1 and  MS_SHAIN.BUSHO_ID=BUSHO.BUSHO_ID"
+		String sql ="select MS_SHAIN.SHAIN_CD,MS_SHAIN.NAME"
+				+" from MS_SHAIN"
 				+" ORDER BY MS_SHAIN.SHAIN_CD";
 		//list型
 		List<Syain> list = new ArrayList<>();
@@ -82,7 +81,7 @@ public class SyainServlet extends HttpServlet {
 				Syain syain = new Syain();
 				syain.setName(rs.getString("NAME"));
 				syain.setShainCd(rs.getString("SHAIN_CD"));
-				syain.setBushoName(rs.getString("BUSHO_NAME"));
+//				syain.setBushoName(rs.getString("BUSHO_NAME"));
 				list.add(syain);
 			}
 		} catch (Exception e) {
@@ -101,6 +100,7 @@ public class SyainServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String shainCd = request.getParameter("shainCd");
 		// JDBCドライバの準備
 				try {
 
@@ -119,7 +119,7 @@ public class SyainServlet extends HttpServlet {
 
 				// 実行するSQL文
 				String sql ="delete from MS_SHAIN"
-						+" where 1=1 and SHAIN_CD = 'EMPOOO1'";
+						+" where 1=1 and SHAIN_CD = '" + shainCd +"'";
 
 				// エラーが発生するかもしれない処理はtry-catchで囲みます
 				// この場合はDBサーバへの接続に失敗する可能性があります
@@ -139,7 +139,10 @@ public class SyainServlet extends HttpServlet {
 					throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細：[%s]", e.getMessage()), e);
 				}
 
-
+				// 画面へレスポンスを返却する処理
+				PrintWriter pw = response.getWriter();
+				// 受注情報リスト（orderList）をJSON型にして返却
+				pw.append(new ObjectMapper().writeValueAsString("ok"));//
 	}
 
 }
