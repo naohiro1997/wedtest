@@ -8,6 +8,7 @@
 <script type="text/javascript" src="jquery-1.10.2.js"></script>
 <script type="text/javascript" src="Shainlist.js"></script>
 <script type="text/javascript" src="ShainRegist.js"></script>
+<script type="text/javascript" src="ShainSerch.js"></script>
 </head>
 <body>
 
@@ -23,12 +24,11 @@
 			</tr>
 		</table>
 	</div>
-	<form action="">
-		<select id="Busho">
-			<option>未指定</option>
-		</select> <input type="text" id="shcd"></input> <input type="text" id="shname"></input>
-		<button type=submit id="searchBtn">検索</button>
-	</form>
+	<div>
+		<input type="text" id="shcd" placeholder="社員ID"></input>
+		<input type="text" id="shname" placeholder="社員名"></input>
+		<button type=submit id="searchBtn" >検索</button>
+	</div>
 	<div class="content">
 		<!-- ページナビゲーション -->
 		<div class="nav">

@@ -38,10 +38,8 @@ public class SyainSearchServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// アクセス元のHTMLでitemNameに設定された値を取得して、String型の変数itemNameに代入
 		String shainCd = request.getParameter("shainCd");
 		String name = request.getParameter("name");
-		String bushoName = request.getParameter("bushoName");
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -54,11 +52,10 @@ public class SyainSearchServlet extends HttpServlet {
 		String url = "jdbc:oracle:thin:@localhost:1521:XE"; // url
 		String user = "wt2";
 		String pass = "wt2";
+
 		// 実行するSQL文
-		String sql = "select MS_SHAIN.SHAIN_CD,MS_SHAIN.NAME,BUSHO.BUSHO_NAME" + " from MS_SHAIN,BUSHO"
-				+ " where 1=1 and  MS_SHAIN.BUSHO_ID=BUSHO.BUSHO_ID and MS_SHAIN.NAME like '%" + name
-				+ "%' and SHAIN_CD='" + shainCd + "' and BUSHO_NAME='" + bushoName + "'"
-				+ " ORDER BY MS_SHAIN.SHAIN_CD";
+		String sql = "select MS_SHAIN.SHAIN_CD,MS_SHAIN.NAME" + " from MS_SHAIN" + " where 1=1 and MS_SHAIN.SHAIN_CD='"
+				+ shainCd + "' and MS_SHAIN.NAME LIKE '%" + name + "%'" + " ORDER BY MS_SHAIN.SHAIN_CD";
 		// list型
 		List<Syain> list = new ArrayList<>();
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
@@ -81,7 +78,7 @@ public class SyainSearchServlet extends HttpServlet {
 				Syain syain = new Syain();
 				syain.setName(rs.getString("NAME"));
 				syain.setShainCd(rs.getString("SHAIN_CD"));
-				syain.setBushoName(rs.getString("BUSHO_NAME"));
+				// syain.setBushoName(rs.getString("BUSHO_NAME"));
 				list.add(syain);
 			}
 		} catch (Exception e) {
