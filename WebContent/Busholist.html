@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- CSSの読み込み -->
+<link rel="stylesheet" type="text/css" href="style.css" />
+<!-- JavaScriptの読み込み -->
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript" src="Busholist.js"></script>
+<script type="text/javascript" src="BushoRegist.js"></script>
+<script type="text/javascript" src="BushoSearch.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="table">
+		<table id="table_data">
+			<tr>
+				<th>部署ID</th>
+				<th>部署名</th>
+				<th></th>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<input type="text" id="shcd" placeholder="部署ID"></input> <input
+			type="text" id="shname" placeholder="部署名"></input>
+		<button type=submit id="searchBtn">検索</button>
+	</div>
+	<div class="content">
+		<!-- ページナビゲーション -->
+		<div class="nav">
+			<h2>新規登録</h2>
+		</div>
+		<table class="shain-detail-table">
+			<tr>
+				<th>部署ID</th>
+				<td><input type="text" placeholder="社員id" id="js-input-code"></td>
+			</tr>
+			<tr>
+				<th>部署名</th>
+				<td><input type="text" placeholder="名前" id="js-input-name"></input></td>
+			</tr>
+
+
+		</table>
+		<button id="js-regist-button">登録</button>
+	</div>
+
+</body>
+</html>

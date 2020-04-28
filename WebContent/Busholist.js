@@ -2,7 +2,7 @@ function executeAjax() {
 	'use strict';
 	$.ajax({
 		type : 'GET',
-		url : '/testweb/SyainServlet',
+		url : '/testweb/BshoListSeavret',
 		dataType : 'json',
 		async : false,
 		success : function(json) {
@@ -10,16 +10,16 @@ function executeAjax() {
 			for (var i = 0; i < json.length; i++) {
 				var element = json[i];
 				var record = '<tr>'
-					+ '<td>' + element.shainCd + '</td>'
-						+ '<td>' + element.name+ '</td>'
-						+ '<td><button id="delet'+ element.shainCd + '" shainCd="'+ element.shainCd +'">' + "削除" + '</button></td>'
-						+ '<td><button onclick="location.href=\'./EditShain.html?shainCd='+element.shainCd+"' "+'" id="'+ element.shainCd + '">' + "編集" + '</button></td>'
+					+ '<td>' + element.bushoID + '</td>'
+						+ '<td>' + element.bushoName+ '</td>'
+						+ '<td><button id="delet'+ element.bushoID + '" bushoID="'+ element.bushoID +'">' + "削除" + '</button></td>'
+						+ '<td><button onclick="location.href=\'./BushoEdit.html?bushoID='+element.bushoID+"' "+'" id="'+ element.bushoID + '">' + "編集" + '</button></td>'
 						+ '</tr>';
 				$('#table_data').append(record)
 //				var op = '<option>' + element.bushoName + '</option>'
 //				$('#Busho').append(op)
 
-				$("#delet" + element.shainCd).bind('click', deleteAjax);
+				$("#delet" + element.bushoID).bind('click', deleteAjax);
 
 
 			}
@@ -31,14 +31,14 @@ function executeAjax() {
 
 
 function deleteAjax(){
-	console.log($(this).attr('shainCd'));
+	console.log($(this).attr('bushoID'));
 	var requestQuery = {
-		shainCd : $(this).attr('shainCd')
+		bushoID : $(this).attr('bushoID')
 	};
 	'use strict';
 	$.ajax({
 		type : 'POST',
-		url : '/testweb/SyainServlet',
+		url : '/testweb/BshoListSeavret',
 		dataType : 'json',
 		data : requestQuery,
 		success : function(json) {

@@ -18,28 +18,26 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class SyainSearchServlet
+ * Servlet implementation class BushoShSearvlet
  */
-@WebServlet("/SyainSearchServlet")
-public class SyainSearchServlet extends HttpServlet {
+@WebServlet("/BushoShSearvlet")
+public class BushoShSearvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SyainSearchServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BushoShSearvlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String shainCd = request.getParameter("shainCd");
-		String name = request.getParameter("name");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String bushoID = request.getParameter("bushoID");
+		String bushoName = request.getParameter("bushoName");
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -54,11 +52,12 @@ public class SyainSearchServlet extends HttpServlet {
 		String pass = "wt2";
 
 		// 実行するSQL文
-		String sql = "select MS_SHAIN.SHAIN_CD,MS_SHAIN.NAME" + " from MS_SHAIN" + " where 1=1";
-		if(!shainCd.equals("")){
-			sql += " and MS_SHAIN.SHAIN_CD='" + shainCd+"'";
+		String sql ="select BUSHO.BUSHO_ID,BUSHO.BUSHO_NAME"+" from BUSHO"+" where 1=1 ";
+		if(!bushoID.equals("")){
+			sql	+= " and BUSHO.BUSHO_ID='"+ bushoID+"'";
 		}
-		sql += " and MS_SHAIN.NAME LIKE '%" + name + "%'" + " ORDER BY MS_SHAIN.SHAIN_CD";
+		sql	+= " and BUSHO.BUSHO_NAME LIKE '%" + bushoName + "%'"+" ORDER BY BUSHO_ID";
+		System.out.println(sql);
 		// list型
 		List<Syain> list = new ArrayList<>();
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
@@ -79,8 +78,8 @@ public class SyainSearchServlet extends HttpServlet {
 			// 次の行がないときはfalseになります
 			while (rs.next()) {
 				Syain syain = new Syain();
-				syain.setName(rs.getString("NAME"));
-				syain.setShainCd(rs.getString("SHAIN_CD"));
+				syain.setBushoID(rs.getString("BUSHO_ID"));
+				syain.setBushoName(rs.getString("BUSHO_NAME"));
 				// syain.setBushoName(rs.getString("BUSHO_NAME"));
 				list.add(syain);
 			}
@@ -96,11 +95,9 @@ public class SyainSearchServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

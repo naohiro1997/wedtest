@@ -18,28 +18,26 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class SyainSearchServlet
+ * Servlet implementation class BushoShNameSearvlet
  */
-@WebServlet("/SyainSearchServlet")
-public class SyainSearchServlet extends HttpServlet {
+@WebServlet("/BushoShNameSearvlet")
+public class BushoShNameSearvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SyainSearchServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BushoShNameSearvlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String shainCd = request.getParameter("shainCd");
-		String name = request.getParameter("name");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String bushoName = request.getParameter("bushoName");
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -54,11 +52,10 @@ public class SyainSearchServlet extends HttpServlet {
 		String pass = "wt2";
 
 		// 実行するSQL文
-		String sql = "select MS_SHAIN.SHAIN_CD,MS_SHAIN.NAME" + " from MS_SHAIN" + " where 1=1";
-		if(!shainCd.equals("")){
-			sql += " and MS_SHAIN.SHAIN_CD='" + shainCd+"'";
-		}
-		sql += " and MS_SHAIN.NAME LIKE '%" + name + "%'" + " ORDER BY MS_SHAIN.SHAIN_CD";
+		String sql ="select BUSHO.BUSHO_ID,BUSHO.BUSHO_NAME"
+				+" from BUSHO"
+				+" where 1=1 and BUSHO.BUSHO_NAME LIKE '%"+bushoName+"%'"
+				+" ORDER BY BUSHO.BUSHO_ID";
 		// list型
 		List<Syain> list = new ArrayList<>();
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
@@ -79,8 +76,8 @@ public class SyainSearchServlet extends HttpServlet {
 			// 次の行がないときはfalseになります
 			while (rs.next()) {
 				Syain syain = new Syain();
-				syain.setName(rs.getString("NAME"));
-				syain.setShainCd(rs.getString("SHAIN_CD"));
+
+				syain.setBushoName(rs.getString("BUSHO_NAME"));
 				// syain.setBushoName(rs.getString("BUSHO_NAME"));
 				list.add(syain);
 			}
@@ -96,11 +93,9 @@ public class SyainSearchServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

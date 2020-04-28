@@ -1,14 +1,21 @@
+
+
+
+
+
+
+
 /* 入力された情報から社員一覧を取得するファンクション */
 var getinfo = function () {
 // 入力された社員名、部署、社員id
 	// 入力された商品コード
-	var inputShainCd = $('#shcd').val();
+	var inputbushoID = $('#shcd').val();
 	// 入力された商品名
-	var inputName = $('#shname').val();
+	var bushoName = $('#shname').val();
 
 	var requestQuery = {
-		shainCd : inputShainCd,
-		name : inputName,
+			bushoID :  inputbushoID,
+			bushoName : bushoName,
 
 	};
 	console.log('requestQuery', requestQuery);
@@ -16,8 +23,9 @@ var getinfo = function () {
 	$.ajax({
 		type : 'GET',
 		dataType : 'json',
-		url : '/testweb/SyainSearchServlet',
+		url : '/testweb/BushoShSearvlet',
 		data : requestQuery,
+		async : false,
 		success : function(json) {
 			// サーバーとの通信に成功した時の処理
 			// 確認のために返却値を出力
@@ -29,13 +37,12 @@ var getinfo = function () {
 			for (var i = 0; i < json.length; i++) {
 				var element = json[i];
 				var record = '<tr>'
-					+ '<td>' + element.shainCd + '</td>'
-						+ '<td>' + element.name+ '</td>'
-						+ '<td><button id="delet'+ element.shainCd + '" shainCd="'+ element.shainCd +'">' + "削除" + '</button></td>'
-						+ '<td><button onclick="location.href=\'./EditShain.html?shainCd='+element.shainCd+"' "+'" id="'+ element.shainCd + '">' + "編集" + '</button></td>'
+					+ '<td>' + element.bushoID + '</td>'
+						+ '<td>' + element.bushoName+ '</td>'
+						+ '<td><button id="delet'+ element.bushoID + '" bushoID="'+ element.bushoID +'">' + "削除" + '</button></td>'
+						+ '<td><button onclick="location.href=\'./BushoEdit.html?bushoID='+element.bushoID+"' "+'" id="'+ element.bushoID + '">' + "編集" + '</button></td>'
 						+ '</tr>';
 				$('#table_data').append(record)
-
 			}
 			}
 		},
