@@ -38,6 +38,14 @@ public class SyainEditSearvlet extends HttpServlet {
 		String shainCd = request.getParameter("shainCd");
 		String name = request.getParameter("name");
 		String upshainCd = request.getParameter("upshainCd");
+		String bushoID = request.getParameter("bushoID");
+		String sex = request.getParameter("sex");
+		System.out.println(sex);
+		System.out.println(name);
+		System.out.println(upshainCd);
+		System.out.println(bushoID);
+		System.out.println(shainCd);
+
 		// JDBCドライバの準備
 		try {
 			// JDBCドライバのロード
@@ -52,8 +60,24 @@ public class SyainEditSearvlet extends HttpServlet {
 		String pass = "wt2";
 
 		// 実行するSQL文
-		String sql = "UPDATE MS_SHAIN SET NAME = '"+name+"',SHAIN_CD='"+upshainCd+"'"
-				 +" WHERE SHAIN_CD = '"+shainCd+"'" ;
+		String sql = "UPDATE MS_SHAIN SET ";
+		if(!name.equals("")&&!upshainCd.equals("")&&!bushoID.equals("")&&sex!=null){
+			sql += " NAME = '" + name + "'"+",SHAIN_CD='" + upshainCd + "'"+",BUSHO_ID='" + bushoID + "'"+",SEX='" + sex + "'";
+		}
+		if (!name.equals("")&&upshainCd.equals("")&&!bushoID.equals("")&&sex==null) {
+			sql += " NAME = '" + name + "'"+",BUSHO_ID='" + bushoID + "'";
+		}
+		if (!upshainCd.equals("")&&name.equals("")&&!bushoID.equals("")&&sex==null) {
+			sql += " SHAIN_CD='" + upshainCd + "'"+",BUSHO_ID='" + bushoID + "'";
+		}
+		if (!bushoID.equals("")&&name.equals("")&&upshainCd.equals("")&&sex==null) {
+		sql += " BUSHO_ID='" + bushoID + "'";
+		}
+		if (sex!=null&&!bushoID.equals("")&&name.equals("")&&upshainCd.equals("")) {
+			sql += " SEX='" + sex + "'"+",BUSHO_ID='" + bushoID + "'";
+		}
+		sql += " WHERE SHAIN_CD = '" + shainCd + "'";
+		System.out.println(sql);
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
 		try (

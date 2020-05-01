@@ -18,58 +18,45 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class SyainSearchServlet
+ * Servlet implementation class PulldownmenuSearvlet
  */
-@WebServlet("/SyainSearchServlet")
-public class SyainSearchServlet extends HttpServlet {
+@WebServlet("/PulldownmenuSearvlet")
+public class PulldownmenuSearvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SyainSearchServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PulldownmenuSearvlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String shainCd = request.getParameter("shainCd");
-		String name = request.getParameter("name");
-		String bushoName = request.getParameter("bushoName");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
+
 		// JDBCドライバの準備
 		try {
+
 			// JDBCドライバのロード
 			Class.forName("oracle.jdbc.driver.OracleDriver");
+
 		} catch (ClassNotFoundException e) {
 			// ドライバが設定されていない場合はエラーになります
 			throw new RuntimeException(String.format("JDBCドライバのロードに失敗しました。詳細:[%s]", e.getMessage()), e);
 		}
+
 		// データベースにアクセスするために、データベースのURLとユーザ名とパスワードを指定
 		String url = "jdbc:oracle:thin:@localhost:1521:XE"; // url
 		String user = "wt2";
 		String pass = "wt2";
 
 		// 実行するSQL文
-		String sql = "select distinct MS_SHAIN.SHAIN_CD,MS_SHAIN.NAME,BUSHO.BUSHO_NAME" + " from MS_SHAIN,BUSHO" + " where 1=1 and MS_SHAIN.BUSHO_ID=BUSHO.BUSHO_ID(+)";
-		if(!shainCd.equals("")){
-			sql += " and MS_SHAIN.SHAIN_CD='" + shainCd+"'";
-		}
-		if(!bushoName.equals("未所属")){
-			sql +=" and BUSHO.BUSHO_NAME='"+bushoName +"'";
-		}
-		if(!name.equals("")){
-		sql += " and MS_SHAIN.NAME LIKE '%" + name + "%'" ;
-		}
-		if(bushoName.equals("未所属")&&name.equals("")&&shainCd.equals("")){
-			sql +=" and MS_SHAIN.BUSHO_ID='"+bushoName +"'";
-		}
-		sql += " ORDER BY MS_SHAIN.SHAIN_CD";
+		String sql = "select distinct BUSHO_NAME,BUSHO.BUSHO_ID"
+				+" from BUSHO";
 		System.out.println(sql);
 		// list型
 		List<Syain> list = new ArrayList<>();
@@ -91,9 +78,8 @@ public class SyainSearchServlet extends HttpServlet {
 			// 次の行がないときはfalseになります
 			while (rs.next()) {
 				Syain syain = new Syain();
-				syain.setName(rs.getString("NAME"));
-				syain.setShainCd(rs.getString("SHAIN_CD"));
-				// syain.setBushoName(rs.getString("BUSHO_NAME"));
+				syain.setBushoID(rs.getString("BUSHO_ID"));
+				syain.setBushoName(rs.getString("BUSHO_NAME"));
 				list.add(syain);
 			}
 		} catch (Exception e) {
@@ -108,11 +94,9 @@ public class SyainSearchServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

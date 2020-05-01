@@ -59,6 +59,7 @@ public class SyainServlet extends HttpServlet {
 		String sql ="select MS_SHAIN.SHAIN_CD,MS_SHAIN.NAME"
 				+" from MS_SHAIN"
 				+" ORDER BY MS_SHAIN.SHAIN_CD";
+		System.out.println(sql);
 		//list型
 		List<Syain> list = new ArrayList<>();
 		// エラーが発生するかもしれない処理はtry-catchで囲みます

@@ -35,6 +35,8 @@ public class SyainRegist extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String shainCd = request.getParameter("shainCd");
 		String name = request.getParameter("name");
+		String bushoID = request.getParameter("bushoID");
+		String sex = request.getParameter("sex");
 		// JDBCドライバの準備
 		try {
 		// JDBCドライバのロード
@@ -50,8 +52,12 @@ public class SyainRegist extends HttpServlet {
 		String pass = "wt2";
 
 		// 実行するSQL文
-		String sql ="insert into MS_SHAIN (SHAIN_CD,NAME)"
-				+" values('"+shainCd+"','"+name+"')";
+		String sql ="insert into MS_SHAIN (SHAIN_CD,NAME,BUSHO_ID,SEX)";
+		if(!shainCd.equals("")&&!name.equals("")&&!sex.equals("")){
+
+				sql+=" values('"+shainCd+"','"+name+"','"+bushoID+"','"+sex+"')";
+		}
+		System.out.println(sql);
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
 		try (

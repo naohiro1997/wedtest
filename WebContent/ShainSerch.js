@@ -5,11 +5,13 @@ var getinfo = function () {
 	var inputShainCd = $('#shcd').val();
 	// 入力された商品名
 	var inputName = $('#shname').val();
+	//プルダウンメニュー
+	var inputbushoName = $('#bushoName').val();
 
 	var requestQuery = {
 		shainCd : inputShainCd,
 		name : inputName,
-
+		bushoName : inputbushoName,
 	};
 	console.log('requestQuery', requestQuery);
 	// サーバーにデータを送信する。

@@ -4,11 +4,17 @@ var regist = function() {
 	var inputShainCd = $('#js-input-code').val();
 	// 入力された商品名
 	var inputName = $('#js-input-name').val();
+	//入力された部署id
+	var inputBushoID = $('#bushoName2').val();
+	//入力された性別
+	var inputsex =$('input:radio[name="q1"]:checked').val();
+	console.log(inputBushoID);
 
 	var requestQuery = {
 		shainCd : inputShainCd,
 		name : inputName,
-
+		bushoID : inputBushoID,
+		sex :inputsex,
 	};
 	console.log('requestQuery', requestQuery);
 	// サーバーにデータを送信する。
@@ -27,7 +33,7 @@ var regist = function() {
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
-			alert('データの通信に失敗しました');
+			alert('すべての情報を入力してください');
 			console.log(errorThrown)
 		}
 	});

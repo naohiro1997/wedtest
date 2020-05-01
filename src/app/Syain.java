@@ -20,6 +20,8 @@ public class Syain implements Serializable {
 	private String bushoID;
 	// 編集部署id
 	private String upbushoID;
+	//性別
+	private String sex;
 
 	public String getShainCd() {
 		return shainCd;
@@ -68,10 +70,19 @@ public class Syain implements Serializable {
 	public void setUpbushoID(String upbushoID) {
 		this.upbushoID = upbushoID;
 	}
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 
 	@Override
 	public String toString() {
-		return "SHAIN [shainCd=" + shainCd + ", name=" + name + ",upshainCd=" + upshainCd + ",bushoID=" + bushoID +",upbushoID=" + upbushoID+"]";
+		return "SHAIN [shainCd=" + shainCd + ", name=" + name + ",upshainCd=" + upshainCd + ",bushoID=" + bushoID +",upbushoID=" + upbushoID+",sex=" + sex+"]";
 	}
+
+
 
 }

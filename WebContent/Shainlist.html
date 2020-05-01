@@ -9,6 +9,7 @@
 <script type="text/javascript" src="Shainlist.js"></script>
 <script type="text/javascript" src="ShainRegist.js"></script>
 <script type="text/javascript" src="ShainSerch.js"></script>
+<script type="text/javascript" src="Pulldownmenu.js"></script>
 </head>
 <body>
 
@@ -25,6 +26,9 @@
 		</table>
 	</div>
 	<div>
+	<select id="bushoName">
+	    	<option value="未所属">未所属</option>
+		</select>
 		<input type="text" id="shcd" placeholder="社員ID"></input>
 		<input type="text" id="shname" placeholder="社員名"></input>
 		<button type=submit id="searchBtn" >検索</button>
@@ -43,11 +47,21 @@
 				<th>名前</th>
 				<td><input type="text" placeholder="名前" id="js-input-name"></input></td>
 			</tr>
+			<tr>
+				<th>性別</th>
+				<td><input type="radio" name="q1" id="shainsex" value="男">男<input type="radio" name="q1" id="shainsex2" value="女">女</td>
+			</tr>
+			<tr>
+				<th>部署名</th>
+				<td><select id="bushoName2" ><option value="未所属">未所属</option></select></td>
+			</tr>
 
 
 		</table>
 		<button id="js-regist-button">登録</button>
 	</div>
-
+    <div>
+    <a href="./index.html">ログイン</a>
+    </div>
 </body>
 </html>

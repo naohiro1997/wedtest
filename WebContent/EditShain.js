@@ -1,15 +1,21 @@
 var regist = function() {
-	// 入力された商品コード
+	// 入力された社員コード
 	var inputShainCd = $('#js-input-code').val();
-	// 入力された商品名
+	// 入力された社員名
 	var inputName = $('#js-input-name').val();
 	//取得した社員コード
 	var acShainCd = getParam('shainCd');
+	//入力された部署id
+	var inputBushoID = $('#bushoName2').val();
+	//入力された性別
+	var inputsex =$('input:radio[name="q1"]:checked').val();
 
 	var requestQuery = {
 		upshainCd : inputShainCd,
 		name : inputName,
-		shainCd : acShainCd
+		shainCd : acShainCd,
+		bushoID : inputBushoID,
+		sex :inputsex,
 	};
 	console.log('requestQuery', requestQuery);
 	// サーバーにデータを送信する。

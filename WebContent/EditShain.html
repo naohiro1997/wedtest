@@ -5,6 +5,7 @@
 <!-- JavaScriptの読み込み -->
 <script type="text/javascript" src="jquery-1.10.2.js"></script>
 <script type="text/javascript" src="EditShain.js"></script>
+<script type="text/javascript" src="EditPulldown.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -22,11 +23,20 @@
 				<th>名前</th>
 				<td><input type="text" placeholder="名前" id="js-input-name"></input></td>
 			</tr>
-
+			<tr>
+				<th>性別</th>
+				<td><input type="radio" name="q1" id="shainsex" value="男">男<input type="radio" name="q1" id="shainsex2" value="女">女</td>
+			</tr>
+			<tr>
+				<th>部署名</th>
+				<td><select id="bushoName2"><option>未所属</option></select></td>
+			</tr>
 
 		</table>
-		<button id="js-regist-button">編集</button>
+		<button id="js-regist-button" >編集</button>
 	</div>
 
 </body>
 </html>
+
+<!--  onclick="location.href='./Shainlist.html'"-->
